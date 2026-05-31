@@ -2,11 +2,11 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 recommendations = pd.read_csv(
-    r"C:\Users\jgn_6\factory_recommendations.csv"
+    "factory_recommendations.csv"
 )
 
 df = pd.read_csv(
-    r"C:\Users\jgn_6\nassau_clustered.csv"
+    "nassau_clustered.csv"
 )
 
 st.set_page_config(
@@ -30,10 +30,11 @@ product = st.selectbox(
     recommendations["Product"]
 )
 
-result = recommendations[
-    recommendations["Product"] == product
-]
+result = recommendations[recommendations["Product"] == product]
 
+if result.empty:
+    st.warning("No data found for selected product")
+    st.stop()
 st.dataframe(result)
 st.header("🏭 Orders by Factory")
 
